@@ -1,0 +1,60 @@
+.heading {
+    text-align: center;
+}
+
+.edit {
+    border-radius: 15px;
+    margin: 3px;
+    height: 30px;
+    text-align: center;
+}
+
+.textbox {
+    /* margin: 10px; */
+    height: 25px;
+    padding: 50px;
+}
+
+.drop {
+    padding: 10px;
+}
+
+.dataTables_scrollBody {
+    overflow: none !important;
+}
+
+.button1 {
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    margin: 25px;
+}
+
+.button {
+    text-align: center;
+    margin: 10px;
+}
+
+select {
+    height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    width: 50%;
+}
+
+#text {
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    height: 15px;
+    width: 200px;
+    padding: 15px;
+}
+
+.display {
+    margin: 25px;
+}
+
+.help-block{
+    color: red;
+}

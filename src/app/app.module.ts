@@ -12,13 +12,15 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { ModalComponent } from './modal/modal.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModalComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,

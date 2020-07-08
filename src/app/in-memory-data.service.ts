@@ -24,6 +24,14 @@ export class InMemoryDataService implements InMemoryDbService {
             age: 55,
             salary: 1186,
             dept_Name: 'CSE'
+        },
+        {
+            id: 3,
+            org_Name: 'Egestas Inc.',
+            emp_Name: 'Mary',
+            age: 20,
+            salary: 9186,
+            dept_Name: 'ECE'
         }
     ];
     return { Data };

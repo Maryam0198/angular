@@ -5,7 +5,7 @@
 </div>
 
 <div class="row mt-2">
-	<table class="display" style="width:90%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"></table>
+	<app-data-table class="display" style="width:90%" [dtOptions]="dtOptions" [data]="dtOptions.data"></app-data-table>
 </div>
 
 <ng-template #modalComponent let-modal>
@@ -21,8 +21,8 @@
 			<div class="form-group row">
 				<label for="emp_Name" class="col-sm-4 col-form-label">Employee Name</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" formControlName="emp_Name" id="emp_Name">
-					<span *ngIf="!userForm.get('emp_Name').valid && userForm.get('emp_Name').touched"
+					<input type="text" class="form-control" formControlName="emp_Name" id="emp_Name" required>
+					<span *ngIf="!userForm.get('emp_Name').valid && userForm.get('emp_Name').touched && userForm.get('emp_Name').errors.required"
 						class="help-block"> Please enter a valid name</span>
 				</div>
 			</div>
@@ -45,22 +45,22 @@
 			<div class="form-group row">
 				<label for="age" class="col-sm-4 col-form-label">Age</label>
 				<div class="col-sm-8">
-					<input type="number" class="form-control" formControlName="age" id="age" [pattern]="agePattern">
-					<span *ngIf="!userForm.get('age').valid && userForm.get('age').touched && userForm.get('age').pattern" class="help-block"> Please
+					<input type="number" class="form-control" formControlName="age" id="age" required>
+					<span *ngIf="!userForm.get('age').valid && userForm.get('age').touched && userForm.get('age').errors.required && userForm.get('age').errors.minlength" class="help-block"> Please
 						enter a valid number</span>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="salary" class="col-sm-4 col-form-label">Salary</label>
 				<div class="col-sm-8">
-					<input type="number" class="form-control" formControlName="salary" id="salary">
-					<span *ngIf="!userForm.get('salary').valid && userForm.get('salary').touched" class="help-block">
+					<input type="number" class="form-control" formControlName="salary" id="salary" required>
+					<span *ngIf="!userForm.get('salary').valid && userForm.get('salary').touched && userForm.get('salary').errors.required" class="help-block">
 						Please enter a valid number</span>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
-				<button type="submit" class="btn btn-primary">Save changes</button>
+				<button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Save changes</button>
 			</div>
 		</form>
 	</div>

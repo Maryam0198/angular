@@ -1,13 +1,13 @@
-import { Component, ViewChild, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit} from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 import { DataService } from "../data.service";
-import { DataTableDirective } from 'angular-datatables';
 import { Data } from '../data';
-import * as $ from 'jquery';
-import 'datatables.net';
-import { Subject } from 'rxjs';
+// import * as $ from 'jquery';
+// import 'datatables.net';
+// import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -15,23 +15,20 @@ import { Subject } from 'rxjs';
   styleUrls: ['./modal.component.scss']
 })
 
-export class ModalComponent implements AfterViewInit, OnDestroy, OnInit {
+export class ModalComponent implements OnInit {
 
   title = 'Angular CRUD';
-  @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<boolean> = new Subject();
+  // @ViewChild(DataTableDirective, { static: false })
+  // dtElement: DataTableDirective;
+  // dtOptions: DataTables.Settings = {};
+  // dtTrigger: Subject<boolean> = new Subject();
 
   @ViewChild('modalComponent', { static: false }) modalComponent;
   modalRef: BsModalRef;
   userForm: FormGroup;
-  // @ViewChild('dataTable', { static: false }) table;
-  // dataTable: any;
-  // dtOptions: any;
   datas: Data[];
   modalTitle: string;
-  agePattern = "^[0-9]{3}$";
+  dtOptions: any;
 
   constructor(private modal: BsModalService, private fb: FormBuilder, private DataService: DataService) { }
 
@@ -104,7 +101,7 @@ export class ModalComponent implements AfterViewInit, OnDestroy, OnInit {
       'emp_Name': new FormControl(null, Validators.required),
       'org_Name': new FormControl(null),
       'dept_Name': new FormControl(null),
-      'age': new FormControl(null, Validators.required),
+      'age': new FormControl(null, [Validators.required, Validators.minLength(3)]),
       'salary': new FormControl(null, Validators.required)
     });
 
@@ -116,7 +113,8 @@ export class ModalComponent implements AfterViewInit, OnDestroy, OnInit {
       .subscribe((data: any[]) => {
         console.log(data);
         this.dtOptions.data = data;
-        this.reRender();
+        // this.reRender();
+        this.userForm.reset();
       })
   }
 
@@ -141,14 +139,17 @@ export class ModalComponent implements AfterViewInit, OnDestroy, OnInit {
       this.DataService.updateUser(this.userForm.value as Data)
         .subscribe(() => {
           this.getData();
+          this.userForm.reset();
           this.modalRef.hide();
         });
     }
     else {
       this.DataService.addUser(this.userForm.value as Data[])
         .subscribe((item: any[]) => {
-          this.dtOptions.data.push(item);
-          this.reRender();
+          // this.dtOptions.data.push(item);
+          // this.reRender();
+          this.getData();
+          this.userForm.reset();
           this.modalRef.hide();
         });
     }
@@ -157,25 +158,25 @@ export class ModalComponent implements AfterViewInit, OnDestroy, OnInit {
   delete(data: Data) {
     this.dtOptions.data = this.dtOptions.data.filter(x => x !== data);
     this.DataService.deleteUser(data).subscribe(() => {
-      this.reRender();
+      // this.reRender();
     });
   }
 
-  reRender() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.destroy();
-      this.dtTrigger.next();
-    });
-    this.userForm.reset();
-  }
+  // reRender() {
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     dtInstance.destroy();
+  //     this.dtTrigger.next();
+  //   });
+  //   this.userForm.reset();
+  // }
 
-  ngAfterViewInit(): void {
-    this.dtTrigger.next();
-  }
+  // ngAfterViewInit(): void {
+  //   this.dtTrigger.next();
+  // }
 
-  ngOnDestroy(): void {
-    // this.DataService.unsubscribe();
-    this.dtTrigger.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   // this.DataService.unsubscribe();
+  //   this.dtTrigger.unsubscribe();
+  // }
 
 }

@@ -24,7 +24,7 @@
     "angular-datatables": "^9.0.2",
     "angular-in-memory-web-api": "^0.11.0",
     "bootstrap": "^4.5.0",
-    "datatables.net": "^1.10.21",
+    "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.10.21",
     "jquery": "^3.5.1",
     "ngx-bootstrap": "^5.6.1",
